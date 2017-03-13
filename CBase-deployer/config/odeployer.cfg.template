@@ -1,0 +1,96 @@
+# ======================================================================
+# Oceanbase Deployer V-demo 2.0 <Configuration file>
+# @date:   2017-01-19 15:12
+# @notice: This configuration template file is generated automatically.
+#          The whole line or several words can be commented out by using
+#          the character of "#".
+# ======================================================================
+
+
+# ----------------------------------------------------------------------
+# Section: oceanbase
+# ----------------------------------------------------------------------
+# Copy the directory of oceanbase to every remote node of the cluster.
+# oceanbase.name        = <string>
+# oceanbase.source.ip   = <source ip>
+# oceanbase.source.user = <username(<username>),password(<password>)>
+# oceanbase.source.dir  = <directory>, 
+#                         source oceanbase installation directory
+# oceanbase.target.dir  = <directory>, 
+#                         target oceanbase installation directory
+# oceanbase.wait        = <wait(<number>),wait(<number>)>, 
+#                         wait after start(second), wait before bootstrap(second)
+# oceanbase.close
+# ----------------------------------------------------------------------
+oceanbase.name        = OB_PAXOS
+oceanbase.source.ip   = 0.0.0.0
+oceanbase.source.user = admin,admin
+oceanbase.source.dir  = ~/oceanbase_source
+oceanbase.target.dir  = ~/oceanbase
+oceanbase.wait        = 5,3
+oceanbase.close
+# ----------------------------------------------------------------------
+oceanbase.name        = OB_BASE
+oceanbase.source.ip   = 0.0.0.0
+oceanbase.source.user = admin,admin
+oceanbase.source.dir  = ~/oceanbase_source
+oceanbase.target.dir  = ~/oceanbase
+oceanbase.wait        = 5,3
+oceanbase.close
+
+
+# ----------------------------------------------------------------------
+# Section: server
+# ----------------------------------------------------------------------
+# The information of remote nodes.
+# The node information must begin with 'server.ip', and end with 'server.close'
+# server.rs.port        = <number>
+# server.ups.port       = <string>
+# server.ms.port        = <String>
+# server.cs.port        = <String>
+# server.version        = <version name>, 
+#                         registered version: OB_PAXOS OB_BASE 
+# server.common.user    = <string>, default user
+# server.common.network = <string>, default network adapter name
+# server.ip             = <ip>, default network adapter name
+# server.user           = <username,password>, 
+#                         ignore 'server.common.user'
+# server.network        = <string>, ignore 'server.common.network'
+# server.close
+# ----------------------------------------------------------------------
+server.rs.port        = 0
+server.ups.port       = 0,0
+server.ms.port        = 0,0
+server.cs.port        = 0,obtest
+server.version        = OB_PAXOS
+server.common.user    = admin,admin
+server.common.network = bond0
+server.ip             = 0.0.0.0
+server.ip             = 1.1.1.1
+server.ip             = 2.2.2.2
+server.close
+
+
+# ----------------------------------------------------------------------
+# Section: start
+# ----------------------------------------------------------------------
+# Custom start sequence of server.
+# start.name     = <string>
+# start.wipe     = <[none|data|log|etc]>, 
+#                  clear directory of './data','./log','./etc', clear all in default
+# start.rscount  = <number>, assign the count of rootserver
+# start.upscount = <number>, assign the count of updateserver
+# start.mrs      = <string>, assign the master rootserver ip
+# start.mups     = <string>, 
+#                  assign the master updateserver ip
+# start.server   = <ip,[rs|ups|ms|lms|cs],String,String>
+# start.close
+# ----------------------------------------------------------------------
+start.name     = null
+start.wipe     = data|log|etc
+start.rscount  = 3
+start.upscount = 3
+start.mrs      = 0.0.0.0
+start.mups     = 0.0.0.0
+start.server   = 0.0.0.0, rs|ups|ms|cs,1,0.5
+start.close
