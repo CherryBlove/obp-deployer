@@ -35,8 +35,7 @@ public class ODCommandHandler implements ODICommandHandler {
     @Override
     public ODError handleCommand(ODCommand cmd) throws Exception {
         ODError ret = ODError.SUCCESS;
-        configurations = deployer.getConfigurations();
-//ODLogger.log("configurations "+cmd+" "+configurations.toString());        
+        configurations = deployer.getConfigurations();      
         if(cmd != ODCommand.CONFIGURATION //忽略生成配置文件模板的命令
                 && (configurations == null || configurations.isEmpty())) {
             ret = ODError.ERROR;
@@ -54,20 +53,17 @@ public class ODCommandHandler implements ODICommandHandler {
             if(cmd == ODCommand.ALL_START) {
                 ret = handleAllStart();
             } else if(cmd == ODCommand.ALL_STOP) {
-                ret = handleAllStop(cmd.getArgumentList());
-//   ODLogger.log("all_stop");             
+                ret = handleAllStop(cmd.getArgumentList());         
             } else if(cmd == ODCommand.CONFIGURATION) {
                 ret = handleCreateConfiguration();
             } else {
-                // 处理映射为Task的命令
-//ODLogger.log("cmd  deployer");              	
+                // 处理映射为Task的命令             	
                 Class<? extends ODISectionParser> clazz = cmd.getBindingSection();
                 if(clazz != null && clazz != ODISectionParser.class) {
                     ODISectionParser section = deployer.getSectionParser(clazz);
                     if(section != null) {
                         ODItem taskItem = taskToItemMap.get(section.getSectionName());
-                        if(taskItem != null) {    
-//ODLogger.log("handleTask "+cmd.getArgumentList()+" "+taskItem+" "+section.getSectionName());                          	
+                        if(taskItem != null) {               	
                             ret = handleTaskCommand(cmd.getArgumentList(), taskItem, section.getSectionName());
                         } else {
                             ODLogger.log("[ERROR] Command '" + cmd + "' is unhandled!");
