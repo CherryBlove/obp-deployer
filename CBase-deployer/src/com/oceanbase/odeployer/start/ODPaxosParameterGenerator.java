@@ -99,10 +99,11 @@ public class ODPaxosParameterGenerator extends ODParameterGenerator {
                 }
             }
             Integer CustomClusterId =Integer.parseInt((String)actionList.get(index).getParameters().get(1));
-            if(CustomClusterId != null && CustomClusterId > 0){
+            if(CustomClusterId != null && CustomClusterId > 0 && CustomClusterId < 7){
             	thisClusterId = CustomClusterId;
             }else{
-            	thisClusterId = clusterId;
+            	ODLogger.log("please set correct clusterid between[1,6],if not the tools will recommand a random clusterID in [1,6] for you");
+            	thisClusterId = (int)Math.random()*clusterId;
             }
             // 必须保持value和name的数目和顺序完全一致
             rsParameterValues.add(String.valueOf(RSCount)); // RS的数目
