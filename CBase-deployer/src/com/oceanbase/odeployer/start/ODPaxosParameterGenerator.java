@@ -3,11 +3,12 @@ package com.oceanbase.odeployer.start;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.oceanbase.odeployer.ODDeployer;
 import com.oceanbase.odeployer.common.ODAction;
 import com.oceanbase.odeployer.common.ODError;
 import com.oceanbase.odeployer.common.ODServerName;
 import com.oceanbase.odeployer.util.ODLogger;
-import com.oceanbase.odeployer.common.ODConfiguration;
+
 /**
  * Paxos版本
  *<blockquote><pre>
@@ -68,15 +69,17 @@ public class ODPaxosParameterGenerator extends ODParameterGenerator {
                     }
                 }
             }         
-            if(RSCount == Integer.parseInt(ODConfiguration.getValueRsCount()) && UPSCount == Integer.parseInt(ODConfiguration.getValueUpsCount())){           	
+            //mod zhangyf [paxos] 170522
+            if(RSCount == Integer.parseInt(ODDeployer.getStValueRsCount()) && UPSCount == Integer.parseInt(ODDeployer.getStValueUpsCount())){           	
             	isInit = true;          	
             }else{
-            	ODLogger.log(RSCount+" "+Integer.parseInt(ODConfiguration.getValueRsCount())+" "+UPSCount+" "+Integer.parseInt(ODConfiguration.getValueUpsCount()));
+            	ODLogger.log(RSCount+" "+Integer.parseInt(ODDeployer.getStValueRsCount())+" "+UPSCount+" "+Integer.parseInt(ODDeployer.getStValueUpsCount()));
+            	ODLogger.log("real RS and UPS is "+RSCount+" "+UPSCount);
             	isInit = false;
                 ret = ODError.ERROR;
                 ODLogger.error("the rscount or upscount is not fit with that have defined", new Throwable().getStackTrace());
             }
-            
+            //mod end
         } else {
             ODLogger.error((new Throwable().getStackTrace()));
             ret = ODError.ERROR;

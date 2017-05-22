@@ -167,14 +167,16 @@ public class ODStartTask extends ODTask {
     	{
     		for(ODAction ac: actionList) {
         		for(ODServerName sn: ac.getServernames()) {
-        			if(sn == ODServerName.RS) {//判断一个action里的server是否是RS，若是RS判断是否是主RS  
+        			if(sn == ODServerName.RS) {//判断一个action里的server是否是RS，若是RS判断是否是主RS 
+        				//mod zhangyf [paxos] 170522
         				serverIp = ac.getServer();
-        				if((serverIp.ip).equals(ODConfiguration.getValueMrs()))
+        				if((serverIp.ip).equals(ODDeployer.getStValueMrs()))
         				{
         					masterRS = ac.getServer();
         					mRs = masterRS;
         					return ret;        					
         				}
+        				//mod end
         			}
         		}
         	}
@@ -197,12 +199,14 @@ public class ODStartTask extends ODTask {
     			{
     				if(sn == ODServerName.UPS)//判断一个action里的server是否是UPS，若是RS判断是否是主UPS  
     				{
+    					//mod zhangyf[paxos] 170522
     					serverIp = ac.getServer();
-    					if((serverIp.ip).equals(ODConfiguration.getValueMups()))
+    					if((serverIp.ip).equals(ODDeployer.getStValueMups()))
     					{
     						masterUPS = ac.getServer();
     						return ret;
     					}
+    					//mod end
     				}
     			}
     		}

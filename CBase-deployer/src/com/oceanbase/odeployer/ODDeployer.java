@@ -110,6 +110,14 @@ public final class ODDeployer {
 
     /** 是否开始运行,保证只start一次 */
     private boolean isStart;
+    
+    /** 设定所启动的RS,UPS数目与设定的RS,UPS数目一致*/
+    private static String stValueRsCount;
+    private static String stValueUpsCount;
+    
+    /** 设定所启动的RS,UPS为主RS以及主UPS*/
+    private static String stValueMrs;
+    private static String stValueMups;
 
     /** 单例 */
     private static ODDeployer DEPLOYER = new ODDeployer();
@@ -588,6 +596,16 @@ public final class ODDeployer {
                         }
                         // 程序输出头部信息 
                         List<Pair<String, String>> headMessageList = ODConfiguration.getItemList(sectionName, taskName);
+                        //add zhangyf [paxos] 170522
+                        //获取配置文件中指定section的rs和ups数目
+                        if("start".equals(cmd.toString()))
+                        {
+                        	stValueRsCount = headMessageList.get(2).second;
+                        	stValueUpsCount = headMessageList.get(3).second;
+                        	stValueMrs = headMessageList.get(4).second;
+                        	stValueMups = headMessageList.get(5).second;
+                        }
+                        //add end
                         //打印程序头
                         printHeader(argsStr, serverList, headMessageList);        
                         oceanbase = ODOceanbase.getInstance();
@@ -704,7 +722,7 @@ public final class ODDeployer {
      * @param clazz 待实例化的类
      * @return 需要实现指定的构造函数
      */
-    private ODError instantiate(Class<?> clazz) {
+    private ODError instantiate(Class<?> clazz) {//为了进行子命令和命令项的扩充，在父类中实例化子类，通过反射方式对子类进行实例化
         ODError ret = ODError.SUCCESS;
         if(clazz != null) {
             try {
@@ -789,5 +807,27 @@ public final class ODDeployer {
         sb.append(ODUtil.charToString("-", 65));
         System.out.println(sb.toString());
     }
+
+    //add zhangf [paxos] 170522
+    /**获取所预先设定的U/u值*/
+	public static String getStValueRsCount() {
+		return stValueRsCount;
+	}
+
+	public static String getStValueUpsCount() {
+		return stValueUpsCount;
+	}
+
+	/**获取所预先设定的主RS和主UPS*/
+	public static String getStValueMrs() {
+		return stValueMrs;
+	}
+
+	public static String getStValueMups() {
+		return stValueMups;
+	}
+    //add end
+    
+    
 
 }

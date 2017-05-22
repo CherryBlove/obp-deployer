@@ -48,15 +48,6 @@ public class ODConfiguration {
      * 用于打印到头部 */
     private static List<Pair<Pair<String, String>, List<Pair<String, String>>>> ITEM_LIST = new ArrayList<>();
     
-    //add zhangyf [paxos] 20170109
-	/** 判断所所启动的RS、UPS数目与所设定的RS、UPS数目是否一致 */
-	private static String stValueRsCount;
-	private static String stValueUpsCount;
-    
-	/** 设定所启动的RS、UPS为主RS以及主UPS*/
-	private static String stValueMrs;
-	private static String stValueMups;
-	//end add
     /**
      * 加载配置文件
      * @param filename 路径/文件
@@ -109,22 +100,7 @@ public class ODConfiguration {
                                             if(!isEof) {
                                                 value = args[1].trim();                              
                                             }
-                                            if(isEof || value.length() > 0) {                                  
-												//add zhangyf [paxos] 20170109
-												if(String.valueOf(item).equals("start.rscount"))
-												{																										
-													stValueRsCount = value;														
-												}else if(String.valueOf(item).equals("start.upscount"))
-												{
-													stValueUpsCount = value;														
-												}else if(String.valueOf(item).equals("start.mrs"))
-												{
-													 stValueMrs = value;
-												}else if(String.valueOf(item).equals("start.mups"))
-												{
-													 stValueMups = value;												 
-												}
-												//end add											
+                                            if(isEof || value.length() > 0) {                                  											
                                                 parser.parseConfigureItems(cmd, item, value);
                                             } else if (!isNullable) {
                                                 printError(ODError.ERROR_EMPTY_VALUE, item);
@@ -450,23 +426,6 @@ public class ODConfiguration {
      */
     private static void printError(ODError code) {
         printError(code, null, null, true);
-    }
-    
-    // add zhangyf [paxos] Ds:U/u for paxos
-    /** 获取所预先设定的U/u值*/
-    public static String getValueRsCount() {	
-  	    return stValueRsCount;
-    }
-    
-    public static String getValueUpsCount() {
-    	return stValueUpsCount;
-    }
-    /** 获取所预先设定的主RS和主UPS*/
-    public static String getValueMrs() {
-    	return stValueMrs;
-    }
-    public static String getValueMups() {
-    	return stValueMups;
     }
     
     /**
