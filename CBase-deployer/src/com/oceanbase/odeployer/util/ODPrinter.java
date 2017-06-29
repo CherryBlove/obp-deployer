@@ -15,7 +15,7 @@ public class ODPrinter {
 	public static String TABLE_CELL_LINE = "<TABLE_CELL_LINE>"; // 有线条
 
     /** 总宽度, 要求是奇数 */
-    private static int WIDTH = 65;
+    private static int WIDTH = 70;
 
     /**
      * 星横线 *****************

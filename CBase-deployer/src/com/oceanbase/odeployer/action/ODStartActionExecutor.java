@@ -6,6 +6,7 @@ import com.oceanbase.odeployer.common.ODAction;
 import com.oceanbase.odeployer.common.ODActionExecutor;
 import com.oceanbase.odeployer.common.ODServer;
 import com.oceanbase.odeployer.common.ODServerName;
+import com.oceanbase.odeployer.start.ODMultiUpsParameterGenerator;
 import com.oceanbase.odeployer.start.ODPaxosParameterGenerator;
 import com.oceanbase.odeployer.start.ODStartParameter;
 import com.oceanbase.odeployer.task.ODStartTask;
@@ -36,7 +37,11 @@ public class ODStartActionExecutor extends ODActionExecutor {
         	serverWait = Double.parseDouble((String)ODPaxosParameterGenerator.getActionList().get(index).getParameters().get(2));         	
         }catch(Exception e)
         {
-        	serverWait = 0.5;
+        	try{
+        		serverWait = Double.parseDouble((String)ODMultiUpsParameterGenerator.getActionList().get(index).getParameters().get(6));
+        	}catch(Exception e1){
+        		serverWait = 0.5;        		
+        	}
         }
         //add end
         //mod zhangyf [paxos] 170109

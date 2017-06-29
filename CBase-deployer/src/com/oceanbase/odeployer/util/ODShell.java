@@ -208,13 +208,30 @@ public class ODShell {
                 String value = parameter.value;
                 if(RSIp.equals(masterRSIp))
                 {
-                	if(option.equals("U")||option.equals("u")||option.equals("C"))
+                	if(option.equals("U")||option.equals("u")||option.equals("C")||option.equals("G")||option.equals("K")||option.equals("F"))
                 	{
                 		sb.append(" -").append(option).append(" ").append(value);	
                 	}
-                }else if(option.equals("C"))
+                }else if("rootserver".equals(serverName.toString()))
                 {
-                         sb.append(" -").append(option).append(" ").append(value);               	
+                	if(option.equals("C")||option.equals("G")||option.equals("K")||option.equals("F"))
+                	{
+                		sb.append(" -").append(option).append(" ").append(value);               	                		
+                	}
+                }
+                if("updateserver".equals(serverName.toString()))
+                {
+                	if(option.equals("C")||option.equals("g"))
+                	{
+                		sb.append(" -").append(option).append(" ").append(value);               	                		
+                	}
+                }
+                if("mergeserver".equals(serverName.toString())||"chunkserver".equals(serverName.toString()))
+                {
+                	if(option.equals("C"))
+                	{
+                		sb.append(" -").append(option).append(" ").append(value);               	                		
+                	}
                 }
               }
            }

@@ -193,9 +193,9 @@ public class ODItem {
     public static final ODItem START_MUPS = new ODItem("START_MUPS");
     
     @ODItemAttribute(
-    		pattern="ip,[rs|ups|ms|lms|cs],String,String",
+    		pattern="ip,[rs|ups|ms|lms|cs],String,String,String,String,String,String",
             executor=ODStartActionExecutor.class,
-            defaultValue="0.0.0.0, rs|ups|ms|cs,1,0.5")
+            defaultValue="0.0.0.0, rs|ups|ms|cs,1,2,2,True,2,0.5")
     public static final ODItem START_SERVER = new ODItem("START_SERVER");
     
     
