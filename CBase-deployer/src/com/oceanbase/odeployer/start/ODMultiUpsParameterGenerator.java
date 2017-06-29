@@ -99,6 +99,7 @@ public class ODMultiUpsParameterGenerator extends ODParameterGenerator {
 	public ODStartParameter generateStartParameter(int index) {
 		// TODO Auto-generated method stub
 		int thisClusterId = -1;
+		int ucount = 0;
         if(isInit) {
             List<String> rsParameterValues = new ArrayList<>();
             List<String> upsParameterValues = new ArrayList<>();
@@ -121,7 +122,13 @@ public class ODMultiUpsParameterGenerator extends ODParameterGenerator {
             String paraK = (String)actionList.get(index).getParameters().get(3);
             String paraF = (String)actionList.get(index).getParameters().get(4);
             String parag = (String)actionList.get(index).getParameters().get(5);
-            int ucount = (UPSCount/Integer.parseInt(paraG))+1;
+            double uc = UPSCount/Double.parseDouble(paraG);
+            if((int)uc == uc)
+            {
+            	ucount = (int)uc; 
+            }else{
+                ucount = (int)uc+1;            	
+            }           
             rsParameterValues.add(String.valueOf(RSCount)); // RS的数目
             rsParameterValues.add(String.valueOf(ucount)); // UPS的数目
             rsParameterValues.add(String.valueOf(thisClusterId)); // 集群号
